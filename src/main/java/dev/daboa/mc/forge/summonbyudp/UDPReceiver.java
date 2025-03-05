@@ -2,6 +2,7 @@ package dev.daboa.mc.forge.summonbyudp;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.nio.charset.StandardCharsets;
 
 public class UDPReceiver implements Runnable {
     private final int port;
@@ -30,7 +31,7 @@ public class UDPReceiver implements Runnable {
                     }
                     break; // `running`がfalseである場合、ループを抜ける
                 }
-                String message = new String(packet.getData(), 0, packet.getLength());
+                String message = new String(packet.getData(), 0, packet.getLength(), StandardCharsets.UTF_8);
                 System.out.println("Received UDP message: " + message);
                 // ゾンビのスポーン条件を成立させる
                 if(message.equals("zombie")) spawn = true;
